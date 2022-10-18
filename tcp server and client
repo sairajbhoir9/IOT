@@ -1,0 +1,135 @@
+
+
+
+
+nano socket.server.py
+
+
+Copy paste this-->>
+
+
+
+
+import socket
+
+
+HOST = '192.168.51.157'
+PORT = 4444
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+print('Socket created ')
+
+
+#managing error exception
+try:
+	s.bind((HOST,PORT))
+except socket.error:
+	print('Bind failed')
+	
+		
+s.listen(s)
+print('Socket awaiting messages')
+(conn,addr) = s.accept()
+print('Connected')
+
+
+	
+#awaiting for message
+while True:
+	data = conn.recv(1080)
+	print('I sent a message back in response to:'+data)	
+	reply=''
+	#process your message
+	if data=='Hello':
+		reply='Hi,back!'
+	elif data=='This is important':
+		reply='Ok,I have done the importantthing you have asked me!'
+		
+	#and as on and so an until....
+	elif data=='quit':
+		conn.send('Terminating')
+		break
+	else:
+		reply='Unknown command'
+	#Sending reply
+	conn.send(reply)
+	conn.closer()
+		
+	
+		
+	
+CTRL+X  then press Y
+CTRL+C  then click enter
+
+
+
+
+nano socket.client.py
+
+
+Copy paste this-->>
+
+
+
+
+
+
+import socket
+
+
+HOST = '192.168.51.157'
+PORT = 4444
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+
+
+
+while True:
+	command=raw_input('Enter your command:')
+	s.send(command'')
+	reply=s.recv(1080)
+	if reply=='Terminate':
+		break
+	print(reply)
+
+
+
+
+
+
+CTRL+X  then press Y
+CTRL+C  then click enter
+
+
+
+
+type in the windows terminal
+
+
+sudo python socket.client.py
+
+
+
+
+
+
+
+
+type  in the terminal of the Raspberry pi.
+
+
+
+
+
+
+sudo python socket.server.py
+	
+
+
+
+
+
+
+
+
+
+

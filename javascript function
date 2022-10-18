@@ -1,0 +1,29 @@
+ 
+
+
+
+var arr=msg.payload;
+
+var arr1=arr.slice(1,-1)
+console.log(arr1);
+var arr2=arr1.split(',');
+console.log(arr2);
+
+function sorting(arr){
+    var done=false;
+    while(!done){
+        done=true;
+        for(var i=0;i<arr.length;i++){
+            if(arr[i]>arr[i+1]){
+                done=false;
+                var temp=arr[i];
+                arr[i]=arr[i+1];
+                arr[i+1]=temp 
+            }
+        }
+        
+    }
+    return arr;
+}
+msg.payload=sorting(arr2);
+return msg
